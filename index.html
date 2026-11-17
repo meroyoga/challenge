@@ -1778,13 +1778,17 @@ $("copyInvite").addEventListener("click",async () => {
 const initialState = getChallengeState();
 
 if (initialState.beforeStart) {
- setTimeout(() => location.reload(),
-  Math.max(0,start-new Date()+500));
+ setTimeout(() => {
+  renderGiftSections();
+  updateCountdown();
+ }, Math.max(0, start - new Date() + 500));
 }
 
 if (!initialState.afterEnd) {
- setTimeout(() => location.reload(),
-  Math.max(0,endExclusive-new Date()+500));
+ setTimeout(() => {
+  renderGiftSections();
+  updateCountdown();
+ }, Math.max(0, endExclusive - new Date() + 500));
 }
 
 
