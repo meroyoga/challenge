@@ -1,0 +1,1800 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Daily Gifts Challenge</title>
+
+<style>
+/* =====================================================
+   01. GLOBAL DESIGN SETTINGS
+   Change all colours, fonts and layout here.
+===================================================== */
+:root {
+  --cream: #F4F0EA;
+  --plum: #3B2040;
+  --dark-plum: #29152D;
+  --coral: #EF7062;
+  --lime: #D5ED5D;
+  --lavender: #EEE5F0;
+  --white: #FFFDFB;
+  --ink: #352238;
+  --muted: #766A76;
+  --border: #E6DFE5;
+
+  --heading-font: Georgia, serif;
+  --body-font: Arial, sans-serif;
+
+  --page-width: 1120px;
+  --card-radius: 15px;
+  --section-padding: 65px;
+}
+
+/* General */
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 85px;
+}
+
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--body-font);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.wrap {
+  width: min(var(--page-width), calc(100% - 40px));
+  margin: auto;
+}
+
+h1,h2,h3,h4 {
+  font-family: var(--heading-font);
+  color: var(--plum);
+  line-height: 1.1;
+  margin: 0;
+}
+
+h1 { font-size: clamp(36px,5vw,62px); }
+h2 { font-size: clamp(27px,3vw,38px); }
+h3 { font-size: 21px; }
+
+p { margin: 10px 0; }
+
+.eyebrow {
+  color: var(--coral);
+  font-size: 9px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.pill {
+  display: inline-block;
+  padding: 6px 12px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 30px;
+  font-size: 10px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 11px 19px;
+  border: 0;
+  border-radius: 30px;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: .7px;
+  font-size: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: .2s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.05);
+}
+
+.btn-plum { background: var(--plum); color: white; }
+.btn-coral { background: var(--coral); color: white; }
+.btn-lime { background: var(--lime); color: var(--plum); }
+
+/* =====================================================
+   02. HERO SECTION
+===================================================== */
+.hero {
+  padding: 55px 0;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.1fr .9fr;
+  gap: 8%;
+  align-items: center;
+}
+
+.hero-copy h1 { margin: 12px 0 18px; }
+
+.hero-copy p {
+  max-width: 500px;
+  font-size: 13px;
+}
+
+.hero-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 18px 0;
+}
+
+.hero-note {
+  font-size: 10px;
+  color: var(--muted);
+}
+
+.hero-art {
+  min-height: 250px;
+  display: grid;
+  place-items: center;
+  position: relative;
+}
+
+.hero-quote {
+  width: min(100%,370px);
+  padding: 35px;
+  background: var(--lime);
+  border-radius: 22px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-quote h2 { font-size: 31px; }
+.hero-quote p { font-size: 11px; }
+
+.orbit {
+  position: absolute;
+  width: 75px;
+  height: 75px;
+  right: 5%;
+  top: 0;
+  border: 2px solid var(--coral);
+  border-left-color: transparent;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+}
+
+/* Countdown */
+.countdown {
+  display: flex;
+  gap: 7px;
+  margin-top: 15px;
+}
+
+.time-unit {
+  background: var(--plum);
+  border-radius: 9px;
+  padding: 8px 11px;
+  min-width: 48px;
+  text-align: center;
+  color: white;
+}
+
+.time-unit strong {
+  display: block;
+  font-family: var(--heading-font);
+  font-size: 22px;
+}
+
+.time-unit small {
+  font-size: 8px;
+  text-transform: uppercase;
+}
+
+/* =====================================================
+   03. HOW IT WORKS
+===================================================== */
+.how {
+  background: var(--plum);
+  color: white;
+  padding: 55px 0;
+}
+
+.how h2,.how h3 { color: white; }
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 30px;
+  max-width: 850px;
+  margin: 35px auto;
+}
+
+.step {
+  text-align: center;
+  max-width: 250px;
+  margin: auto;
+}
+
+.step-number {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  margin: 0 auto 14px;
+  background: var(--coral);
+  color: var(--plum);
+  font-family: var(--heading-font);
+  font-size: 18px;
+}
+
+.step:nth-child(2) .step-number { background: #D9CCE0; }
+.step:nth-child(3) .step-number { background: var(--lime); }
+
+.step h3 {
+  font-size: 13px;
+  text-transform: uppercase;
+}
+
+.step p {
+  color: #E9DFEA;
+  font-size: 11px;
+}
+
+.how-footnote {
+  max-width: 700px;
+  text-align: center;
+  margin: auto;
+  font-family: var(--heading-font);
+  font-size: 13px;
+}
+
+/* =====================================================
+   04. SHARE STRIP
+===================================================== */
+.share-strip {
+  background: var(--lime);
+  padding: 13px 0;
+}
+
+.share-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+
+.share-inner p {
+  font-family: var(--heading-font);
+  font-size: 17px;
+  margin: 0;
+}
+
+/* =====================================================
+   05. CATEGORY NAVIGATION
+===================================================== */
+.category-nav {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(244,240,234,.97);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 0;
+}
+
+.category-nav-inner {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+}
+
+.category-nav a {
+  white-space: nowrap;
+  text-decoration: none;
+  font-size: 9px;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 8px 13px;
+  border-radius: 30px;
+  background: white;
+  border: 1px solid var(--border);
+}
+
+.category-nav a.active,
+.category-nav a:hover {
+  background: var(--plum);
+  color: white;
+}
+
+/* =====================================================
+   06. COLLECTION + APP CTA
+===================================================== */
+.collection {
+  padding: 65px 0 35px;
+}
+
+.section-intro {
+  max-width: 620px;
+  margin: 0 auto 28px;
+  text-align: center;
+}
+
+.section-intro p {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.collection-status {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 15px;
+}
+
+.app-cta {
+  background: var(--coral);
+  border-radius: 22px;
+  padding: 35px;
+  display: grid;
+  grid-template-columns: 1.2fr .8fr;
+  gap: 25px;
+  align-items: center;
+  max-width: 970px;
+  margin: 28px auto 0;
+}
+
+.app-cta h2 { font-size: 32px; }
+.app-cta p { font-size: 12px; }
+
+.store-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.store-links img {
+  width: 160px;
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* =====================================================
+   07. GIFT BOXES
+===================================================== */
+.gift-section {
+  padding: 48px 0 55px;
+  background: var(--lavender);
+  scroll-margin-top: 75px;
+}
+
+.gift-section:nth-child(even) {
+  background: #F6F1ED;
+}
+
+.gift-section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 23px;
+}
+
+.gift-section-title {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.category-dot {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #D9CBE2;
+}
+
+.gift-grid {
+  display: grid;
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  gap: 15px;
+  max-width: 850px;
+  margin: auto;
+}
+
+.gift-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--white);
+  border: 2px solid transparent;
+  border-radius: var(--card-radius);
+  overflow: hidden;
+  box-shadow: 0 5px 18px rgba(48,26,52,.09);
+  transition: .2s ease;
+}
+
+.gift-card:hover {
+  transform: translateY(-4px);
+}
+
+.gift-card.is-selected {
+  border-color: var(--lime);
+  background: #FBFFE9;
+}
+
+.gift-image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1.55;
+  object-fit: cover;
+  background: #E7DCEB;
+}
+
+.gift-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 14px;
+}
+
+.gift-category {
+  font-size: 8px;
+  color: var(--coral);
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.gift-content h3 {
+  font-size: 18px;
+  margin: 6px 0;
+}
+
+.gift-content p {
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.gift-meta {
+  margin-top: auto;
+  font-size: 9px;
+  color: var(--muted);
+}
+
+.gift-action {
+  width: 100%;
+  margin-top: 12px;
+}
+
+.selected-label {
+  display: none;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 6px 9px;
+  border-radius: 20px;
+  background: var(--lime);
+  font-size: 8px;
+  font-weight: bold;
+  z-index: 2;
+}
+
+.is-selected .selected-label { display: block; }
+
+/* Locked overlay */
+.lock-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 15px;
+  background: rgba(59,32,64,.48);
+  color: white;
+  cursor: pointer;
+}
+
+.lock-overlay strong {
+  display: block;
+  font-family: var(--heading-font);
+  font-size: 20px;
+}
+
+.lock-overlay span { font-size: 10px; }
+
+.is-locked .lock-overlay { display: flex; }
+
+/* =====================================================
+   08. NOT SURE WHERE TO START
+===================================================== */
+.finder {
+  padding: 70px 0;
+  text-align: center;
+}
+
+.finder p {
+  max-width: 520px;
+  margin: 12px auto 22px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.finder-buttons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 9px;
+}
+
+.finder-buttons button {
+  background: white;
+  color: var(--plum);
+  border: 1px solid var(--border);
+  border-radius: 30px;
+  padding: 9px 14px;
+  font-size: 10px;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.finder-buttons button:hover {
+  background: var(--lime);
+  transform: translateY(-3px);
+}
+
+.finder-start {
+  margin-top: 25px;
+  font-family: var(--heading-font);
+  font-size: 22px;
+  color: var(--coral);
+}
+
+/* =====================================================
+   09. CLOSING SECTION + FOOTER
+===================================================== */
+.closing {
+  background: var(--plum);
+  color: white;
+  text-align: center;
+  padding: 60px 0;
+}
+
+.closing h2 { color: white; }
+.closing p { color: #E9DFEA; font-size: 12px; }
+
+.closing .time-unit { background: var(--dark-plum); }
+.closing .time-unit strong { color: var(--lime); }
+
+.closing-buttons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.footer {
+  background: var(--dark-plum);
+  color: white;
+  padding: 35px 0 20px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  gap: 30px;
+}
+
+.footer h3 { color: var(--lime); }
+.footer h4 {
+  color: white;
+  font-size: 10px;
+  text-transform: uppercase;
+}
+
+.footer p,.footer a {
+  font-size: 10px;
+  color: #D8CBD9;
+}
+
+.footer a {
+  display: block;
+  text-decoration: none;
+  margin: 5px 0;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,.15);
+  margin-top: 25px;
+  padding-top: 15px;
+  font-size: 9px;
+}
+
+/* =====================================================
+   10. MESSAGE POPUP
+===================================================== */
+.notice {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(25,12,28,.65);
+  display: none;
+  place-items: center;
+  padding: 20px;
+}
+
+.notice.open { display: grid; }
+
+.notice-box {
+  background: var(--cream);
+  border-radius: 20px;
+  padding: 30px;
+  max-width: 390px;
+  width: 100%;
+  text-align: center;
+}
+
+.notice-box h3 { margin-bottom: 12px; }
+.notice-box p { font-size: 12px; color: var(--muted); }
+
+/* =====================================================
+   RESPONSIVE DESIGN
+===================================================== */
+@media(max-width:760px) {
+  .hero-grid { grid-template-columns: 1fr; gap: 25px; }
+  .hero-art { min-height: 190px; }
+  .steps { gap: 15px; }
+  .app-cta { grid-template-columns: 1fr; }
+  .store-links { justify-content: flex-start; }
+  .gift-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media(max-width:460px) {
+  .steps { grid-template-columns: 1fr; }
+  .gift-grid { gap: 9px; }
+  .gift-content { padding: 10px; }
+  .gift-content h3 { font-size: 15px; }
+  .gift-content p { font-size: 9px; }
+  .gift-section-head { display: block; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .share-inner p { font-size: 14px; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =====================================================
+     11. CHALLENGE SETTINGS
+===================================================== -->
+<script>
+const CHALLENGE = {
+  challengeId: "daily-gifts-30",
+
+  challengeDays: 30,
+
+  startDate: "2026-12-01",
+  endDate: "2026-12-30",
+
+  // Set true temporarily when testing.
+  previewAccess: false,
+
+  signupUrl: "https://example.com/signup",
+
+  inviteUrl: window.location.href.split("?")[0],
+
+  pageEyebrow: "Welcome to your daily gift",
+  pageTitle: "Your Daily Gifts are waiting.",
+
+  heroText: "A collection of thoughtful resources designed to support you, inspire you and help you feel good, one day at a time.",
+
+  heroSubText: "Explore the collection, choose what feels useful for you right now, and enjoy a new little discovery each day.",
+
+  howTitle: "How it works",
+
+  howFootnote: "Your challenge, your way. Choose what feels right for you today, and come back tomorrow for another discovery.",
+
+  collectionEyebrow: "The collection",
+  collectionTitle: "Explore all your daily gifts",
+  collectionText: "Find the little something that feels most useful to you right now.",
+
+  shareText: "Share this 30 days of gifts with a friend",
+
+  onePerDayMessage: "Your gift for today has been unlocked. Come back tomorrow for a new gift!",
+
+  signupMessage: "Sign up to unlock your gifts and take part in the challenge.",
+
+  beforeStartMessage: "Your gifts are getting ready. Come back when the challenge begins.",
+
+  appTitle: "A little more support, whenever you need it.",
+
+  appText: "Discover practices, sessions and tools to help you feel more grounded, supported and connected.",
+
+  finderTitle: "Not sure where to start?",
+
+  finderText: "Choose what you would like a little more of right now. We'll take you straight to the gifts in that category.",
+
+  closingTitle: "Your daily gifts are waiting.",
+
+  closingText: "A new opportunity to pause, explore and find something that supports you.",
+
+  footerBrand: "Your Brand",
+
+  footerDescription: "A space for support, self-discovery and everyday wellbeing.",
+
+  copyright: "© 2026 Your Brand. All rights reserved.",
+
+  // A signup provider can redirect back with ?access=1.
+  accessReturnParameter: "access"
+};
+
+
+/* =====================================================
+   12. CATEGORY MANAGER
+
+   Add, remove or rename categories here.
+   Each category ID must match the categoryId
+   used in the offer manager below.
+===================================================== */
+
+const CATEGORIES = [
+  {
+    id: "rest",
+    name: "Sleep, Energy & Stress",
+    description: "Slow down, soften and restore.",
+    icon: "☾",
+    finderLabel: "I need a reset"
+  },
+  {
+    id: "mindset",
+    name: "Mindset & Confidence",
+    description: "Shift perspective and reconnect with yourself.",
+    icon: "✳",
+    finderLabel: "I want a mindset boost"
+  },
+  {
+    id: "body",
+    name: "Body & Movement",
+    description: "Move, release and reconnect with your body.",
+    icon: "♡",
+    finderLabel: "I want to move my body"
+  },
+  {
+    id: "calm",
+    name: "Calm & Nervous System",
+    description: "Find steadiness and create a little more ease.",
+    icon: "〰",
+    finderLabel: "I need to feel calmer"
+  },
+  {
+    id: "joy",
+    name: "Joy & Self-Discovery",
+    description: "Make room for curiosity and possibility.",
+    icon: "✧",
+    finderLabel: "I want more joy"
+  }
+];
+
+
+/* =====================================================
+   13. OFFER MANAGER
+
+   All offers are managed here.
+
+   day         = challenge day number
+   categoryId  = category ID from CATEGORIES
+   imageUrl    = gift image
+   linkUrl     = destination when gift is opened
+   active      = false hides the offer
+
+   Add more offer objects for challenges longer than 30 days.
+===================================================== */
+
+const OFFERS = [
+  {id:"gift-01",day:1,categoryId:"rest",label:"Rest",title:"A 10-minute reset",description:"A gentle guided pause to help you slow down and settle.",imageUrl:"https://placehold.co/640x420/E7DCEB/3B2040?text=Gift+01",linkUrl:"https://example.com/gift-01",active:true},
+  {id:"gift-02",day:2,categoryId:"mindset",label:"Mindset",title:"A fresh perspective",description:"A short practice to help you notice a new possibility.",imageUrl:"https://placehold.co/640x420/F3D5D0/3B2040?text=Gift+02",linkUrl:"https://example.com/gift-02",active:true},
+  {id:"gift-03",day:3,categoryId:"body",label:"Movement",title:"Move and release",description:"Make a little space with a simple body-based practice.",imageUrl:"https://placehold.co/640x420/DCE8D0/3B2040?text=Gift+03",linkUrl:"https://example.com/gift-03",active:true},
+  {id:"gift-04",day:4,categoryId:"calm",label:"Nervous system",title:"Find your steady",description:"A grounding audio to help you return to the present.",imageUrl:"https://placehold.co/640x420/DCE4EF/3B2040?text=Gift+04",linkUrl:"https://example.com/gift-04",active:true},
+  {id:"gift-05",day:5,categoryId:"joy",label:"Self-discovery",title:"A feel-good exploration",description:"A playful prompt to discover what feels good to you.",imageUrl:"https://placehold.co/640x420/F5E7B8/3B2040?text=Gift+05",linkUrl:"https://example.com/gift-05",active:true},
+  {id:"gift-06",day:6,categoryId:"rest",label:"Rest",title:"Permission to pause",description:"A quiet moment to take a breath and do a little less.",imageUrl:"https://placehold.co/640x420/E7DCEB/3B2040?text=Gift+06",linkUrl:"https://example.com/gift-06",active:true},
+  {id:"gift-07",day:7,categoryId:"mindset",label:"Confidence",title:"Own your voice",description:"A small confidence practice for showing up as yourself.",imageUrl:"https://placehold.co/640x420/F3D5D0/3B2040?text=Gift+07",linkUrl:"https://example.com/gift-07",active:true},
+  {id:"gift-08",day:8,categoryId:"body",label:"Somatic practice",title:"Release the tension",description:"Explore a gentle practice for noticing and releasing tension.",imageUrl:"https://placehold.co/640x420/DCE8D0/3B2040?text=Gift+08",linkUrl:"https://example.com/gift-08",active:true},
+  {id:"gift-09",day:9,categoryId:"calm",label:"Breathwork",title:"Breathe into ease",description:"A simple breathing session to create a little more space.",imageUrl:"https://placehold.co/640x420/DCE4EF/3B2040?text=Gift+09",linkUrl:"https://example.com/gift-09",active:true},
+  {id:"gift-10",day:10,categoryId:"joy",label:"Joy",title:"Your joy list",description:"Reconnect with the small things that bring you pleasure.",imageUrl:"https://placehold.co/640x420/F5E7B8/3B2040?text=Gift+10",linkUrl:"https://example.com/gift-10",active:true},
+  {id:"gift-11",day:11,categoryId:"rest",label:"Sleep",title:"A softer evening",description:"A calming audio to help you transition towards rest.",imageUrl:"https://placehold.co/640x420/E7DCEB/3B2040?text=Gift+11",linkUrl:"https://example.com/gift-11",active:true},
+  {id:"gift-12",day:12,categoryId:"mindset",label:"Self-worth",title:"Worth remembering",description:"A reflective exercise to reconnect with your own value.",imageUrl:"https://placehold.co/640x420/F3D5D0/3B2040?text=Gift+12",linkUrl:"https://example.com/gift-12",active:true},
+  {id:"gift-13",day:13,categoryId:"body",label:"Yoga",title:"Stretch and soften",description:"A short sequence to bring movement into your day.",imageUrl:"https://placehold.co/640x420/DCE8D0/3B2040?text=Gift+13",linkUrl:"https://example.com/gift-13",active:true},
+  {id:"gift-14",day:14,categoryId:"calm",label:"Grounding",title:"Come back to now",description:"A grounding practice for busy or overwhelming moments.",imageUrl:"https://placehold.co/640x420/DCE4EF/3B2040?text=Gift+14",linkUrl:"https://example.com/gift-14",active:true},
+  {id:"gift-15",day:15,categoryId:"joy",label:"Curiosity",title:"Try something different",description:"A little invitation to explore a new way of feeling good.",imageUrl:"https://placehold.co/640x420/F5E7B8/3B2040?text=Gift+15",linkUrl:"https://example.com/gift-15",active:true},
+  {id:"gift-16",day:16,categoryId:"rest",label:"Rest",title:"Rest without earning it",description:"A reminder and practice for making room to pause.",imageUrl:"https://placehold.co/640x420/E7DCEB/3B2040?text=Gift+16",linkUrl:"https://example.com/gift-16",active:true},
+  {id:"gift-17",day:17,categoryId:"mindset",label:"Mindset",title:"Change the inner conversation",description:"Notice an old thought and experiment with a new response.",imageUrl:"https://placehold.co/640x420/F3D5D0/3B2040?text=Gift+17",linkUrl:"https://example.com/gift-17",active:true},
+  {id:"gift-18",day:18,categoryId:"body",label:"Body connection",title:"Listen to your body",description:"A short guided check-in to notice what you need.",imageUrl:"https://placehold.co/640x420/DCE8D0/3B2040?text=Gift+18",linkUrl:"https://example.com/gift-18",active:true},
+  {id:"gift-19",day:19,categoryId:"calm",label:"Ease",title:"A calmer moment",description:"A practical reset for moments when life feels full.",imageUrl:"https://placehold.co/640x420/DCE4EF/3B2040?text=Gift+19",linkUrl:"https://example.com/gift-19",active:true},
+  {id:"gift-20",day:20,categoryId:"joy",label:"Self-discovery",title:"What do you want more of?",description:"A prompt to help you make space for what matters.",imageUrl:"https://placehold.co/640x420/F5E7B8/3B2040?text=Gift+20",linkUrl:"https://example.com/gift-20",active:true},
+  {id:"gift-21",day:21,categoryId:"rest",label:"Sleep",title:"Drift into rest",description:"A soothing wind-down session for the end of the day.",imageUrl:"https://placehold.co/640x420/E7DCEB/3B2040?text=Gift+21",linkUrl:"https://example.com/gift-21",active:true},
+  {id:"gift-22",day:22,categoryId:"mindset",label:"Confidence",title:"Take up your space",description:"A practical reflection on being seen and heard.",imageUrl:"https://placehold.co/640x420/F3D5D0/3B2040?text=Gift+22",linkUrl:"https://example.com/gift-22",active:true},
+  {id:"gift-23",day:23,categoryId:"body",label:"Movement",title:"A little energy boost",description:"A short movement break to shift your energy.",imageUrl:"https://placehold.co/640x420/DCE8D0/3B2040?text=Gift+23",linkUrl:"https://example.com/gift-23",active:true},
+  {id:"gift-24",day:24,categoryId:"calm",label:"Breathwork",title:"Make space to breathe",description:"A guided breathing pause to reconnect with yourself.",imageUrl:"https://placehold.co/640x420/DCE4EF/3B2040?text=Gift+24",linkUrl:"https://example.com/gift-24",active:true},
+  {id:"gift-25",day:25,categoryId:"joy",label:"Joy",title:"A small moment of delight",description:"Find one small thing that makes today feel brighter.",imageUrl:"https://placehold.co/640x420/F5E7B8/3B2040?text=Gift+25",linkUrl:"https://example.com/gift-25",active:true},
+  {id:"gift-26",day:26,categoryId:"rest",label:"Rest",title:"Pause and restore",description:"A restorative practice to help you slow the pace.",imageUrl:"https://placehold.co/640x420/E7DCEB/3B2040?text=Gift+26",linkUrl:"https://example.com/gift-26",active:true},
+  {id:"gift-27",day:27,categoryId:"mindset",label:"Mindset",title:"Make room for possibility",description:"A gentle prompt to explore what could be different.",imageUrl:"https://placehold.co/640x420/F3D5D0/3B2040?text=Gift+27",linkUrl:"https://example.com/gift-27",active:true},
+  {id:"gift-28",day:28,categoryId:"body",label:"Somatic practice",title:"Reconnect and release",description:"A guided body-based practice for reconnecting with yourself.",imageUrl:"https://placehold.co/640x420/DCE8D0/3B2040?text=Gift+28",linkUrl:"https://example.com/gift-28",active:true},
+  {id:"gift-29",day:29,categoryId:"calm",label:"Grounding",title:"Find your centre",description:"A grounding audio to support a steadier moment.",imageUrl:"https://placehold.co/640x420/DCE4EF/3B2040?text=Gift+29",linkUrl:"https://example.com/gift-29",active:true},
+  {id:"gift-30",day:30,categoryId:"joy",label:"Self-discovery",title:"Your next little discovery",description:"Close the challenge with a moment that is just for you.",imageUrl:"https://placehold.co/640x420/F5E7B8/3B2040?text=Gift+30",linkUrl:"https://example.com/gift-30",active:true}
+];
+</script>
+
+  
+<!-- =====================================================
+     14. HERO
+===================================================== -->
+<header class="hero">
+ <div class="wrap hero-grid">
+  <div class="hero-copy">
+   <div class="eyebrow" id="heroEyebrow"></div>
+   <h1 id="heroTitle"></h1>
+   <p id="heroText"></p>
+   <p id="heroSubText"></p>
+   <div class="hero-stats">
+    <span class="pill" id="daysPill"></span>
+    <span class="pill">A little something, just for you</span>
+   </div>
+   <div class="hero-note" id="heroDateNote"></div>
+   <a class="btn btn-lime" id="signupButton" href="#">
+    Sign up & unlock your gifts
+   </a>
+   <div class="countdown" id="heroCountdown"></div>
+  </div>
+
+  <div class="hero-art">
+   <div class="orbit"></div>
+   <div class="hero-quote">
+    <h2>Choose what you need. Ignore what you don't.</h2>
+    <p>This is your space, and you get to decide.</p>
+   </div>
+  </div>
+ </div>
+</header>
+
+
+<!-- =====================================================
+     15. HOW IT WORKS
+===================================================== -->
+<section class="how">
+ <div class="wrap">
+  <h2 class="center" id="howTitle">How it works</h2>
+
+  <div class="steps">
+   <div class="step">
+    <div class="step-number">1</div>
+    <h3>Explore</h3>
+    <p>Browse the gifts and find the resources that feel relevant to you.</p>
+   </div>
+
+   <div class="step">
+    <div class="step-number">2</div>
+    <h3>Choose</h3>
+    <p>Pick one gift each day. Choose what you need, in the category that feels right.</p>
+   </div>
+
+   <div class="step">
+    <div class="step-number">3</div>
+    <h3>Enjoy</h3>
+    <p>Open your gift, take what you need, and come back tomorrow for another.</p>
+   </div>
+  </div>
+
+  <p class="how-footnote" id="howFootnote"></p>
+ </div>
+</section>
+
+
+<!-- =====================================================
+     16. SHARE STRIP
+===================================================== -->
+<div class="share-strip">
+ <div class="wrap share-inner">
+  <p id="shareText"></p>
+  <button class="btn btn-plum" id="copyInvite">Copy invite</button>
+ </div>
+</div>
+
+
+<!-- =====================================================
+     17. CATEGORY NAVIGATION
+===================================================== -->
+<nav class="category-nav">
+ <div class="wrap category-nav-inner" id="categoryNav"></div>
+</nav>
+
+
+<!-- =====================================================
+     18. COLLECTION INTRO + APP DOWNLOAD CTA
+===================================================== -->
+<section class="collection" id="collection">
+ <div class="wrap">
+
+  <div class="section-intro">
+   <div class="eyebrow" id="collectionEyebrow"></div>
+   <h2 id="collectionTitle"></h2>
+   <p id="collectionText"></p>
+
+   <div class="collection-status">
+    <span class="pill" id="showingText"></span>
+    <button class="btn btn-plum" id="showAllButton">
+     Show all gifts
+    </button>
+   </div>
+  </div>
+
+  <div class="app-cta">
+   <div>
+    <div class="eyebrow">A little more, whenever you need it</div>
+    <h2 id="appTitle"></h2>
+    <p id="appText"></p>
+   </div>
+
+   <div class="store-links">
+    <a href="https://play.google.com/store/apps"
+       target="_blank" rel="noopener">
+     <img
+      src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
+      alt="Get it on Google Play">
+    </a>
+
+    <a href="https://apps.apple.com/"
+       target="_blank" rel="noopener">
+     <img
+      src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=250x83"
+      alt="Download on the App Store">
+    </a>
+   </div>
+  </div>
+
+ </div>
+</section>
+
+
+<!-- =====================================================
+     19. GIFT CATEGORY SECTIONS
+     Generated automatically by JavaScript.
+===================================================== -->
+<main id="giftSections"></main>
+
+
+<!-- =====================================================
+     20. NOT SURE WHERE TO START
+===================================================== -->
+<section class="finder">
+ <div class="wrap">
+
+  <h2 id="finderTitle"></h2>
+  <p id="finderText"></p>
+
+  <div class="finder-buttons" id="finderButtons"></div>
+
+  <div class="finder-start">Start there.</div>
+
+ </div>
+</section>
+
+
+<!-- =====================================================
+     21. CLOSING SECTION
+===================================================== -->
+<section class="closing">
+ <div class="wrap">
+
+  <h2 id="closingTitle"></h2>
+  <p id="closingText"></p>
+
+  <div class="countdown" id="closingCountdown"
+       style="justify-content:center"></div>
+
+  <div class="closing-buttons">
+   <a class="btn btn-coral" id="closingSignup" href="#">
+    Sign up & unlock your gifts
+   </a>
+
+   <a class="btn btn-lime" id="closingSecond" href="#collection">
+    Explore the gifts
+   </a>
+  </div>
+
+  <p id="closingDateNote"></p>
+
+ </div>
+</section>
+
+
+<!-- =====================================================
+     22. FOOTER
+===================================================== -->
+<footer class="footer">
+ <div class="wrap">
+
+  <div class="footer-grid">
+
+   <div>
+    <h3 id="footerBrand"></h3>
+    <p id="footerDescription"></p>
+   </div>
+
+   <div>
+    <h4>Contact</h4>
+    <a href="mailto:hello@example.com">hello@example.com</a>
+    <a href="#">Instagram</a>
+    <a href="#">Facebook</a>
+   </div>
+
+   <div>
+    <h4>Quick links</h4>
+    <a href="#collection">The gifts</a>
+    <a href="#giftSections">How it works</a>
+    <a href="#">Privacy policy</a>
+    <a href="#">Terms & conditions</a>
+   </div>
+
+  </div>
+
+  <div class="footer-bottom" id="copyright"></div>
+
+ </div>
+</footer>
+
+
+<!-- =====================================================
+     23. MESSAGE POPUP
+===================================================== -->
+<div class="notice" id="notice" role="dialog" aria-modal="true">
+
+ <div class="notice-box">
+  <h3 id="noticeTitle">A little note</h3>
+  <p id="noticeMessage"></p>
+  <button class="btn btn-plum" id="noticeClose">Got it</button>
+ </div>
+
+</div>
+
+
+<!-- =====================================================
+     24. PAGE ENGINE
+===================================================== -->
+<script>
+
+const $ = id => document.getElementById(id);
+
+
+/* -----------------------------------------------------
+   DATE SETTINGS
+----------------------------------------------------- */
+
+function dateOnly(value) {
+ return new Date(value + "T00:00:00");
+}
+
+function today() {
+ const d = new Date();
+
+ return [
+  d.getFullYear(),
+  String(d.getMonth()+1).padStart(2,"0"),
+  String(d.getDate()).padStart(2,"0")
+ ].join("-");
+}
+
+const start = dateOnly(CHALLENGE.startDate);
+
+const endExclusive = new Date(
+ dateOnly(CHALLENGE.endDate).getTime() + 86400000
+);
+
+function getChallengeState() {
+ const now = new Date();
+
+ return {
+  beforeStart: now < start,
+  afterEnd: now >= endExclusive,
+  active: now >= start && now < endExclusive
+ };
+}
+
+
+/* -----------------------------------------------------
+   ACCESS MANAGEMENT
+
+   For initial testing:
+   Set previewAccess:true in CHALLENGE.
+
+   For real signup:
+   Redirect the successful signup back to this page
+   with ?access=1.
+
+   This is a temporary browser-based access system.
+   It is not secure authentication.
+----------------------------------------------------- */
+
+const accessKey = `giftAccess:${CHALLENGE.challengeId}`;
+
+if (
+ new URLSearchParams(location.search)
+ .get(CHALLENGE.accessReturnParameter) === "1"
+) {
+ localStorage.setItem(accessKey,"true");
+
+ const cleanURL = new URL(location.href);
+ cleanURL.searchParams.delete(CHALLENGE.accessReturnParameter);
+
+ history.replaceState({}, "", cleanURL);
+}
+
+function hasAccess() {
+ return CHALLENGE.previewAccess ||
+ localStorage.getItem(accessKey) === "true";
+}
+
+
+/* -----------------------------------------------------
+   OFFER AND CATEGORY DATA
+----------------------------------------------------- */
+
+const offers = OFFERS.filter(o =>
+ o.active !== false &&
+ Number(o.day) >= 1 &&
+ Number(o.day) <= CHALLENGE.challengeDays
+);
+
+const populatedCategories = CATEGORIES.filter(category =>
+ offers.some(offer => offer.categoryId === category.id)
+);
+
+const selectionKey =
+ `giftSelection:${CHALLENGE.challengeId}`;
+
+function readSelection() {
+ try {
+  return JSON.parse(localStorage.getItem(selectionKey) || "null");
+ } catch {
+  return null;
+ }
+}
+
+let selection = readSelection();
+let currentCategory = "all";
+
+function saveSelection(value) {
+ selection = value;
+ localStorage.setItem(selectionKey,JSON.stringify(value));
+}
+
+
+/* -----------------------------------------------------
+   POPUP
+----------------------------------------------------- */
+
+function showNotice(message) {
+ $("noticeMessage").textContent = message;
+ $("notice").classList.add("open");
+}
+
+$("noticeClose").addEventListener("click",() => {
+ $("notice").classList.remove("open");
+});
+
+$("notice").addEventListener("click",e => {
+ if (e.target === $("notice")) {
+  $("notice").classList.remove("open");
+ }
+});
+
+
+/* -----------------------------------------------------
+   PAGE TEXT
+----------------------------------------------------- */
+
+function formatDate(date) {
+ return date.toLocaleDateString(undefined,{
+  day:"numeric",
+  month:"long",
+  year:"numeric"
+ });
+}
+
+function setCopy() {
+
+ $("heroEyebrow").textContent = CHALLENGE.pageEyebrow;
+ $("heroTitle").textContent = CHALLENGE.pageTitle;
+ $("heroText").textContent = CHALLENGE.heroText;
+ $("heroSubText").textContent = CHALLENGE.heroSubText;
+
+ $("daysPill").textContent =
+ CHALLENGE.challengeDays + " days of gifts";
+
+ $("howTitle").textContent = CHALLENGE.howTitle;
+ $("howFootnote").textContent = CHALLENGE.howFootnote;
+
+ $("shareText").textContent =
+ CHALLENGE.shareText.replace(/\d+/,CHALLENGE.challengeDays);
+
+ $("collectionEyebrow").textContent =
+ CHALLENGE.collectionEyebrow;
+
+ $("collectionTitle").textContent =
+ CHALLENGE.collectionTitle;
+
+ $("collectionText").textContent =
+ CHALLENGE.collectionText;
+
+ $("appTitle").textContent = CHALLENGE.appTitle;
+ $("appText").textContent = CHALLENGE.appText;
+
+ $("finderTitle").textContent = CHALLENGE.finderTitle;
+ $("finderText").textContent = CHALLENGE.finderText;
+
+ $("closingTitle").textContent = CHALLENGE.closingTitle;
+ $("closingText").textContent = CHALLENGE.closingText;
+
+ $("footerBrand").textContent = CHALLENGE.footerBrand;
+
+ $("footerDescription").textContent =
+ CHALLENGE.footerDescription;
+
+ $("copyright").textContent = CHALLENGE.copyright;
+
+ $("signupButton").href = CHALLENGE.signupUrl;
+ $("closingSignup").href = CHALLENGE.signupUrl;
+}
+
+
+/* -----------------------------------------------------
+   COUNTDOWN
+
+   Before start = Starts in
+   During challenge = Closes in
+   After end = Challenge ended
+----------------------------------------------------- */
+
+function countdownHTML(target) {
+
+ const remaining = Math.max(0,target-new Date());
+
+ const days = Math.floor(remaining/86400000);
+ const hours = Math.floor(remaining%86400000/3600000);
+ const minutes = Math.floor(remaining%3600000/60000);
+ const seconds = Math.floor(remaining%60000/1000);
+
+ return `
+  <div class="time-unit">
+   <strong>${String(days).padStart(2,"0")}</strong>
+   <small>Days</small>
+  </div>
+
+  <div class="time-unit">
+   <strong>${String(hours).padStart(2,"0")}</strong>
+   <small>Hours</small>
+  </div>
+
+  <div class="time-unit">
+   <strong>${String(minutes).padStart(2,"0")}</strong>
+   <small>Minutes</small>
+  </div>
+
+  <div class="time-unit">
+   <strong>${String(seconds).padStart(2,"0")}</strong>
+   <small>Seconds</small>
+  </div>
+ `;
+}
+
+function updateCountdown() {
+
+ const state = getChallengeState();
+
+ let target;
+ let label;
+
+ if (state.beforeStart) {
+  target = start;
+  label = "Starts in";
+ } else if (state.afterEnd) {
+  target = endExclusive;
+  label = "Challenge ended";
+ } else {
+  target = endExclusive;
+  label = "Closes in";
+ }
+
+ $("heroCountdown").innerHTML = countdownHTML(target);
+ $("closingCountdown").innerHTML = countdownHTML(target);
+
+ let dateLabel;
+
+ if (state.beforeStart) {
+  dateLabel = "Starts " + formatDate(start);
+ } else if (state.afterEnd) {
+  dateLabel = "Ended " + formatDate(dateOnly(CHALLENGE.endDate));
+ } else {
+  dateLabel = "Closes " + formatDate(dateOnly(CHALLENGE.endDate));
+ }
+
+ $("heroDateNote").textContent = label + " · " + dateLabel;
+ $("closingDateNote").textContent = label + " · " + dateLabel;
+}
+
+
+/* -----------------------------------------------------
+   CATEGORY NAVIGATION
+----------------------------------------------------- */
+
+function renderNavigation() {
+
+ const nav = $("categoryNav");
+
+ nav.innerHTML = `
+  <a href="#giftSections"
+     data-category="all"
+     class="active">All gifts</a>
+
+  ${populatedCategories.map(category => `
+   <a href="#gift-${category.id}"
+      data-category="${category.id}">
+      ${category.name}
+   </a>
+  `).join("")}
+ `;
+
+ nav.querySelectorAll("a").forEach(link => {
+
+  link.addEventListener("click",event => {
+   event.preventDefault();
+   setCategory(link.dataset.category);
+  });
+
+ });
+
+}
+
+
+/* -----------------------------------------------------
+   CREATE GIFT CARD
+----------------------------------------------------- */
+
+function createGiftCard(offer) {
+
+ const chosen =
+ selection &&
+ selection.day === today() &&
+ selection.offerId === offer.id;
+
+ const state = getChallengeState();
+
+ const locked =
+ !hasAccess() ||
+ state.beforeStart ||
+ state.afterEnd;
+
+ const category = CATEGORIES.find(
+  c => c.id === offer.categoryId
+ );
+
+ return `
+  <article class="gift-card
+    ${chosen ? "is-selected" : ""}
+    ${locked ? "is-locked" : ""}"
+    data-offer="${offer.id}">
+
+   <div class="lock-overlay" data-lock="${offer.id}">
+    <div>
+     <strong>
+      ${!hasAccess()
+       ? "Sign up to unlock"
+       : state.beforeStart
+       ? "Coming soon"
+       : "Challenge closed"}
+     </strong>
+
+     <span>
+      ${!hasAccess()
+       ? "Join the challenge to access this gift"
+       : state.beforeStart
+       ? "Your gifts unlock when the challenge begins"
+       : "This challenge has ended"}
+     </span>
+    </div>
+   </div>
+
+   <span class="selected-label">Your gift today ✓</span>
+
+   <img
+    class="gift-image"
+    src="${offer.imageUrl}"
+    alt="${offer.title}"
+    loading="lazy"
+    onerror="this.src='https://placehold.co/640x420/E7DCEB/3B2040?text=Your+Gift'">
+
+   <div class="gift-content">
+
+    <div class="gift-category">
+     Day ${offer.day} · ${offer.label || category?.name || "Gift"}
+    </div>
+
+    <h3>${offer.title}</h3>
+
+    <p>${offer.description}</p>
+
+    <div class="gift-meta">
+     ${category ? category.name : "Daily gift"}
+    </div>
+
+    <button
+     class="btn ${chosen ? "btn-lime" : "btn-coral"} gift-action"
+     data-open="${offer.id}">
+     ${chosen ? "Open your gift" : "Choose this gift"}
+    </button>
+
+   </div>
+  </article>
+ `;
+}
+
+
+/* -----------------------------------------------------
+   RENDER CATEGORY SECTIONS
+
+   All = every category stacked.
+   Individual category = only that category.
+----------------------------------------------------- */
+
+function renderGiftSections() {
+
+ const root = $("giftSections");
+
+ const groups = populatedCategories.filter(category =>
+  currentCategory === "all" ||
+  currentCategory === category.id
+ );
+
+ root.innerHTML = groups.map(category => {
+
+  const categoryOffers = offers.filter(
+   offer => offer.categoryId === category.id
+  );
+
+  return `
+   <section
+    class="gift-section"
+    id="gift-${category.id}">
+
+    <div class="wrap">
+
+     <div class="gift-section-head">
+
+      <div class="gift-section-title">
+
+       <span class="category-dot">
+        ${category.icon || "✧"}
+       </span>
+
+       <div>
+        <h2>${category.name}</h2>
+        <div style="font-size:10px;color:var(--muted)">
+         ${category.description || ""}
+        </div>
+       </div>
+
+      </div>
+
+      <span class="pill">
+       ${categoryOffers.length}
+       ${categoryOffers.length === 1 ? "gift" : "gifts"}
+      </span>
+
+     </div>
+
+     <div class="gift-grid">
+      ${categoryOffers.map(createGiftCard).join("")}
+     </div>
+
+    </div>
+   </section>
+  `;
+
+ }).join("");
+
+ // Gift selection buttons
+ root.querySelectorAll("[data-open]").forEach(button => {
+
+  button.addEventListener("click",() => {
+   chooseGift(button.dataset.open);
+  });
+
+ });
+
+ // Locked overlay clicks
+ root.querySelectorAll("[data-lock]").forEach(overlay => {
+
+  overlay.addEventListener("click",() => {
+
+   const state = getChallengeState();
+
+   if (!hasAccess()) {
+    showNotice(CHALLENGE.signupMessage);
+   } else if (state.beforeStart) {
+    showNotice(CHALLENGE.beforeStartMessage);
+   } else {
+    showNotice("This challenge has ended.");
+   }
+
+  });
+
+ });
+
+}
+
+
+/* -----------------------------------------------------
+   SHOWING LABEL + SHOW ALL
+----------------------------------------------------- */
+
+function updateShowing() {
+
+ const count = currentCategory === "all"
+  ? offers.length
+  : offers.filter(o => o.categoryId === currentCategory).length;
+
+ const name = currentCategory === "all"
+  ? "all categories"
+  : CATEGORIES.find(c => c.id === currentCategory)?.name;
+
+ $("showingText").textContent =
+ `Showing ${count} gifts in ${name}`;
+
+ $("showAllButton").textContent =
+ currentCategory === "all"
+ ? "Showing all gifts"
+ : "Show all gifts";
+}
+
+
+/* -----------------------------------------------------
+   CHANGE CATEGORY
+----------------------------------------------------- */
+
+function setCategory(id) {
+
+ currentCategory = id;
+
+ renderGiftSections();
+ updateShowing();
+
+ document.querySelectorAll(".category-nav a").forEach(link => {
+  link.classList.toggle(
+   "active",
+   link.dataset.category === id
+  );
+ });
+
+ // When choosing a category, jump to its heading.
+ if (id !== "all") {
+
+  setTimeout(() => {
+   document.getElementById("gift-" + id)
+    ?.scrollIntoView({
+     behavior:"smooth",
+     block:"start"
+    });
+  },50);
+
+ } else {
+
+  $("collection").scrollIntoView({
+   behavior:"smooth",
+   block:"start"
+  });
+
+ }
+
+}
+
+
+/* -----------------------------------------------------
+   DAILY GIFT SELECTION
+
+   One selection per calendar day.
+
+   Clicking the same gift again opens it.
+   Clicking another gift shows the daily message.
+----------------------------------------------------- */
+
+function chooseGift(id) {
+
+ const offer = offers.find(o => o.id === id);
+
+ if (!offer) return;
+
+ const state = getChallengeState();
+
+ if (!hasAccess()) {
+  showNotice(CHALLENGE.signupMessage);
+  return;
+ }
+
+ if (state.beforeStart) {
+  showNotice(CHALLENGE.beforeStartMessage);
+  return;
+ }
+
+ if (state.afterEnd) {
+  showNotice("This challenge has ended. Thank you for being part of it!");
+  return;
+ }
+
+ // A previous selection from another day does not count.
+ const todaysSelection =
+  selection && selection.day === today()
+  ? selection
+  : null;
+
+ // Already selected a different gift today.
+ if (
+  todaysSelection &&
+  todaysSelection.offerId !== id
+ ) {
+  showNotice(CHALLENGE.onePerDayMessage);
+  return;
+ }
+
+ // Same gift selected today: open it again.
+ if (
+  todaysSelection &&
+  todaysSelection.offerId === id
+ ) {
+  window.open(offer.linkUrl,"_blank","noopener");
+  return;
+ }
+
+ // First gift selection today.
+ saveSelection({
+  day:today(),
+  offerId:id
+ });
+
+ renderGiftSections();
+
+ // Open selected gift.
+ window.open(offer.linkUrl,"_blank","noopener");
+
+}
+
+
+/* -----------------------------------------------------
+   NOT SURE WHERE TO START
+
+   Only categories with offers are displayed.
+----------------------------------------------------- */
+
+function renderFinder() {
+
+ $("finderButtons").innerHTML =
+ populatedCategories.map(category => `
+  <button
+   type="button"
+   data-jump="${category.id}">
+   ${category.finderLabel || category.name}
+  </button>
+ `).join("");
+
+ $("finderButtons").querySelectorAll("[data-jump]")
+ .forEach(button => {
+
+  button.addEventListener("click",() => {
+   setCategory(button.dataset.jump);
+  });
+
+ });
+
+}
+
+
+/* -----------------------------------------------------
+   SHOW ALL GIFTS
+----------------------------------------------------- */
+
+$("showAllButton").addEventListener("click",() => {
+ setCategory("all");
+});
+
+
+/* -----------------------------------------------------
+   COPY INVITATION
+
+   Copies invitation text and the page URL.
+----------------------------------------------------- */
+
+$("copyInvite").addEventListener("click",async () => {
+
+ const invite =
+ `${CHALLENGE.shareText.replace(/\d+/,CHALLENGE.challengeDays)}! Join me here: ${CHALLENGE.inviteUrl}`;
+
+ try {
+
+  await navigator.clipboard.writeText(invite);
+
+  $("copyInvite").textContent = "Copied!";
+
+  setTimeout(() => {
+   $("copyInvite").textContent = "Copy invite";
+  },2200);
+
+ } catch(error) {
+
+  showNotice(
+   "Copying is not available in this browser. Please copy this invite link: " +
+   CHALLENGE.inviteUrl
+  );
+
+ }
+
+});
+
+
+/* -----------------------------------------------------
+   AUTOMATIC START / END STATE UPDATE
+
+   Reload when start/end boundary is reached so
+   locked cards change state automatically.
+----------------------------------------------------- */
+
+const initialState = getChallengeState();
+
+if (initialState.beforeStart) {
+ setTimeout(() => location.reload(),
+  Math.max(0,start-new Date()+500));
+}
+
+if (!initialState.afterEnd) {
+ setTimeout(() => location.reload(),
+  Math.max(0,endExclusive-new Date()+500));
+}
+
+
+/* -----------------------------------------------------
+   INITIALISE PAGE
+----------------------------------------------------- */
+
+setCopy();
+
+renderNavigation();
+
+renderGiftSections();
+
+renderFinder();
+
+updateShowing();
+
+updateCountdown();
+
+setInterval(updateCountdown,1000);
+
+</script>
+
+</body>
+</html>
